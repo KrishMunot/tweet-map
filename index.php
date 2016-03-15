@@ -15,6 +15,7 @@
 			// variable for storing the value of latest tweet id_str for sending along with next API call.
 			var since_id='0';
 			var locationFound = false;
+			var krishNeedsALife = true;
 			
 			function plotRecentTweets(){
 				var URL = 'http://krishmunot.com/local-tweet-map/search.php?since_id='+since_id+'&latitude='+latitude+'&longitude='+longitude;
