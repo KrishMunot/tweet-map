@@ -15,6 +15,7 @@
 			// variable for storing the value of latest tweet id_str for sending along with next API call.
 			var since_id='0';
 			var locationFound = false;
+		</script>	
 		</head>
 	<body>
 		<h1 style="text-align:center;">Local Tweet Map</h1>
