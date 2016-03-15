@@ -7,6 +7,14 @@
 		</style>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6oyKPyKj1JsXHLaKtvEFIlhOVgtfT8aE"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script>
+			// global variables to be assigned values, later on, in functions
+			var latitude=0, longitude=0, map;
+			// queue to store the markers for purpose of deleting older ones when length exceeds 100
+			var markersList=[];
+			// variable for storing the value of latest tweet id_str for sending along with next API call.
+			var since_id='0';
+			var locationFound = false;
 		</head>
 	<body>
 		<h1 style="text-align:center;">Local Tweet Map</h1>
