@@ -15,6 +15,57 @@
 			// variable for storing the value of latest tweet id_str for sending along with next API call.
 			var since_id='0';
 			var locationFound = false;
+			
+			function plotRecentTweets(){
+				var URL = 'http://krishmunot.com/local-tweet-map/search.php?since_id='+since_id+'&latitude='+latitude+'&longitude='+longitude;
+				$.ajax({
+					type: 'GET',
+					url: URL,
+					success: function(data){
+						var x = JSON.parse(data);
+						var len = x.length;
+						console.log(x);
+						for(var j in x){
+							// change in index made to push the oldest tweet first in the queue `markersList`
+							var i = len - j - 1;
+							var longitude = x[i].coordinates.coordinates[0];
+							var latitude = x[i].coordinates.coordinates[1];
+							var screen_name = x[i].user.screen_name;
+							var tweetText = x[i].text;
+							var profileImageURL = x[i].user.profile_image_url;
+							var myLatlng = new google.maps.LatLng(latitude, longitude);
+							var infoWindow = new google.maps.InfoWindow({
+								content: tweetText
+							});
+							// get tweet id of the latest tweet retrieved
+							since_id = x[i].id_str;
+							
+							var marker = new google.maps.Marker({
+								position: myLatlng,
+								map: map,
+								title: tweetText,
+								icon: profileImageURL
+							});
+							markersList.push(marker);
+							// <NOT WORKING>
+							google.maps.event.addListener(markersList[markersList.length-1], 'click', function(){
+								//infoWindow.open(map, markersList[markersList.length-1]);
+							});
+							// </NOT WORKING>
+						}
+						// remove the oldest tweets and their corresponding markers from map if length of queue exceeds 100.
+						while(markersList.length>100){
+							(markersList.shift()).setMap(null);
+						}
+					},
+					error: function(){
+						// show error message
+						console.log("No response from the server!");
+					}
+				});
+			}
+			
+			
 		</script>	
 		</head>
 	<body>
