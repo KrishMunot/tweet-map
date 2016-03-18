@@ -65,6 +65,33 @@
 					}
 				});
 			}
+			function initialize(){
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+						latitude = position.coords.latitude;
+						longitude = position.coords.longitude;
+						var myLatlng = new google.maps.LatLng(latitude, longitude);
+						var mapOptions = {
+							zoom: 14,
+							center: myLatlng
+						}
+					
+					},
+					function(msg){
+						var s = document.getElementById("status");
+						s.innerHTML = (typeof msg == "string") ? "<h1>"+msg+"</h1>" : "<h1>Failed to access your location!</h1>";
+					});
+				} else { 
+					// show error message
+				}
+			}
+			google.maps.event.addDomListener(window, 'load', initialize);
+
+			setInterval(function(){
+				plotRecentTweets();
+			}, 10000);
+			
+		</script>
 			
 		</script>	
 		</head>
