@@ -76,7 +76,7 @@
 							center: myLatlng
 						}
 					
-					},
+					};
 					function(msg){
 						var s = document.getElementById("status");
 						s.innerHTML = (typeof msg == "string") ? "<h1>"+msg+"</h1>" : "<h1>Failed to access your location!</h1>";
