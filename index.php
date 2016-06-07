@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-<<<<<<< HEAD
-		<title>Local Tweet Map</title>
-=======
-		<title>Local Tweet Map : Visualizer by Sahil Dua</title>
->>>>>>> eb519dfe997d5a30bfa5b368d5f1403925082538
+		<title>Tweet Map</title>
 		<style>
 			html, body, #map-canvas{height:100%;margin:0;padding:0;font-family:Calibri,sans-serif; }
 		</style>
@@ -19,23 +15,13 @@
 			// variable for storing the value of latest tweet id_str for sending along with next API call.
 			var since_id='0';
 			var locationFound = false;
-<<<<<<< HEAD
 			
 			function plotRecentTweets(){
-				var URL = 'http://sahildua.com/tripoto-twitter-maps/search.php?since_id='+since_id+'&latitude='+latitude+'&longitude='+longitude;
+				var URL = 'http://krishmunot.com/tripoto-twitter-maps/search.php?since_id='+since_id+'&latitude='+latitude+'&longitude='+longitude;
 				$.ajax({
 					type: 'GET',
 					url: URL,
 
-=======
-			var krishNeedsALife = true;
-			
-			function plotRecentTweets(){
-				var URL = 'http://krishmunot.com/local-tweet-map/search.php?since_id='+since_id+'&latitude='+latitude+'&longitude='+longitude;
-				$.ajax({
-					type: 'GET',
-					url: URL,
->>>>>>> eb519dfe997d5a30bfa5b368d5f1403925082538
 					success: function(data){
 						var x = JSON.parse(data);
 						var len = x.length;
@@ -62,19 +48,11 @@
 								icon: profileImageURL
 							});
 							markersList.push(marker);
-<<<<<<< HEAD
-							
-							google.maps.event.addListener(markersList[markersList.length-1], 'click', function(){
-								
-							});
-						
-=======
 							// <NOT WORKING>
 							google.maps.event.addListener(markersList[markersList.length-1], 'click', function(){
 								//infoWindow.open(map, markersList[markersList.length-1]);
 							});
 							// </NOT WORKING>
->>>>>>> eb519dfe997d5a30bfa5b368d5f1403925082538
 						}
 						// remove the oldest tweets and their corresponding markers from map if length of queue exceeds 100.
 						while(markersList.length>100){
@@ -86,10 +64,8 @@
 						console.log("No response from the server!");
 					}
 				});
-<<<<<<< HEAD
 			}
-=======
-			}
+			
 			function initialize(){
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position){
@@ -100,8 +76,25 @@
 							zoom: 14,
 							center: myLatlng
 						}
-					
-					};
+						map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+						
+						var marker = new google.maps.Marker({
+							position: myLatlng,
+							map: map,
+							title:"My Location"
+						});
+						var circleOptions = {
+							strokeColor: '#B0C4DE',
+							strokeOpacity: 0.8,
+							strokeWeight: 2,
+							fillColor: '#B0C4DE',
+							fillOpacity: 0.35,
+							map: map,
+							center: myLatlng,
+							radius: 1609.34
+						};
+						var circle = new google.maps.Circle(circleOptions);
+					},
 					function(msg){
 						var s = document.getElementById("status");
 						s.innerHTML = (typeof msg == "string") ? "<h1>"+msg+"</h1>" : "<h1>Failed to access your location!</h1>";
@@ -117,9 +110,7 @@
 			}, 10000);
 			
 		</script>
-			
-		</script>	
-		</head>
+	</head>
 	<body>
 		<h1 style="text-align:center;">Local Tweet Map</h1>
 		<p style="text-align:center;">Visualize the most recent tweets within 1-mile radius of your current location(Hover over the profile pic of the user to read the tweet text)</p>
@@ -127,4 +118,3 @@
 		<div id="map-canvas"></div>
 	</body>
 </html>
->>>>>>> eb519dfe997d5a30bfa5b368d5f1403925082538
